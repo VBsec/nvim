@@ -13,6 +13,11 @@ return {
 		inlay_hints = {
 			enabled = false,
 		},
+		diagnostics = {
+			float = {
+				border = "rounded",
+			},
+		},
 		servers = {
 			bashls = {
 				filetypes = { "sh", "bash" },
