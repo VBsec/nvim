@@ -4,15 +4,13 @@ return {
 		ft = "go",
 		dependencies = "mfussenegger/nvim-dap",
 		config = function()
-			local dap = require("dap")
 			require("dap-go").setup()
 
-			-- Wait for dap-go to setup its configurations
-			vim.defer_fn(function()
-				-- Add custom configuration for your server
-				table.insert(dap.configurations.go, {
+			-- Add custom configuration at the beginning of the list
+			local dap = require("dap")
+			table.insert(dap.configurations.go, 2, {
 				type = "go",
-				name = "Debug server with env",
+				name = "🚀 Debug server with env",
 				request = "launch",
 				program = "${workspaceFolder}/cmd/server",
 				env = function()
@@ -42,8 +40,6 @@ return {
 					return env
 				end,
 			})
-			end, 100)
 		end,
 	},
 }
-
