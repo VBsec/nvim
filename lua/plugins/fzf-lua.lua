@@ -1,5 +1,21 @@
 return {
   "ibhagwan/fzf-lua",
+  opts = {
+    diagnostics = {
+      actions = {
+        -- Add Ctrl-y to yank diagnostic message
+        ["ctrl-y"] = function(selected)
+          local entry = selected[1]
+          if entry then
+            -- Extract the diagnostic message from the entry
+            local msg = entry:match("%d+:%d+:%s*(.*)$") or entry
+            vim.fn.setreg("+", msg)
+            vim.notify("Copied: " .. msg, vim.log.levels.INFO)
+          end
+        end,
+      },
+    },
+  },
   keys = {
     -- Override the Neo-tree <leader>fe mapping to find .env files
     {
