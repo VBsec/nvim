@@ -25,6 +25,8 @@ return {
 			},
 			keymaps = {
 				["<C-c>"] = false,
+				["<C-h>"] = false, -- Disable to prevent conflict with tmux navigation
+				["<C-l>"] = false, -- Disable to prevent conflict with tmux navigation
 				["q"] = "actions.close",
 			},
 		})
