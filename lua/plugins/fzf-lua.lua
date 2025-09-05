@@ -1,6 +1,20 @@
 return {
   "ibhagwan/fzf-lua",
   opts = {
+    files = {
+      actions = {
+        -- Add Ctrl-y to copy relative path to clipboard
+        ["ctrl-y"] = function(selected)
+          local entry = selected[1]
+          if entry then
+            -- Extract the file path from the entry
+            local path = require("fzf-lua").path.entry_to_file(entry).path
+            vim.fn.setreg("+", path)
+            vim.notify("Copied: " .. path, vim.log.levels.INFO)
+          end
+        end,
+      },
+    },
     diagnostics = {
       actions = {
         -- Add Ctrl-y to yank diagnostic message
