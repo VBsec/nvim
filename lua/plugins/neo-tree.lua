@@ -1,12 +1,6 @@
 return {
 	"nvim-neo-tree/neo-tree.nvim",
-	opts = {
-		sources = { "filesystem" },
-		window = {
-			max_width = 80,
-			auto_expand_width = true,
-		},
-	},
+	enabled = false,
 }
 
 -- local config = {
