@@ -68,6 +68,25 @@ local function neovimMappings()
 		{ noremap = true, silent = true, desc = "Symbols Outline(Aerial)" }
 	)
 	map("n", "<leader>ch", "<cmd>Ouroboros<CR>", { noremap = false, desc = "Switch header/source" })
+	
+	-- Copy file paths to clipboard (yank paths)
+	map("n", "<leader>yP", function()
+		local path = vim.fn.expand("%:p")
+		vim.fn.setreg("+", path)
+		print("Copied: " .. path)
+	end, { desc = "Yank absolute path" })
+	
+	map("n", "<leader>yp", function()
+		local path = vim.fn.expand("%:.")
+		vim.fn.setreg("+", path)
+		print("Copied: " .. path)
+	end, { desc = "Yank relative path" })
+	
+	map("n", "<leader>yf", function()
+		local path = vim.fn.expand("%:t")
+		vim.fn.setreg("+", path)
+		print("Copied: " .. path)
+	end, { desc = "Yank filename" })
 	map(
 		"n",
 		"<leader>cj",

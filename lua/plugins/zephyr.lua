@@ -64,58 +64,6 @@ return {
     end,
   },
 
-  -- DAP configuration for debugging with J-Link/SEGGER
-  {
-    "mfussenegger/nvim-dap",
-    optional = true,
-    dependencies = {
-      {
-        "jay-babu/mason-nvim-dap.nvim",
-        opts = function(_, opts)
-          opts.ensure_installed = opts.ensure_installed or {}
-          vim.list_extend(opts.ensure_installed, { "codelldb" })
-        end,
-      },
-    },
-    opts = function()
-      local dap = require("dap")
-      
-      -- GDB configuration for Zephyr debugging
-      dap.adapters.arm_gdb = {
-        type = "executable",
-        command = "arm-none-eabi-gdb",
-        args = { "-i", "dap" },
-      }
-
-      dap.configurations.c = dap.configurations.c or {}
-      table.insert(dap.configurations.c, {
-        name = "Debug Zephyr (J-Link)",
-        type = "arm_gdb",
-        request = "launch",
-        program = function()
-          return vim.fn.input("Path to zephyr.elf: ", vim.fn.getcwd() .. "/apps/iot-connector/build/zephyr/zephyr.elf", "file")
-        end,
-        cwd = "${workspaceFolder}",
-        setupCommands = {
-          {
-            text = "target remote :2331",
-            description = "Connect to J-Link GDB Server",
-            ignoreFailures = false,
-          },
-          {
-            text = "monitor reset",
-            description = "Reset target",
-            ignoreFailures = false,
-          },
-          {
-            text = "load",
-            description = "Load program",
-            ignoreFailures = false,
-          },
-        },
-      })
-    end,
-  },
 
   -- Quick compile error navigation
   {
