@@ -4,36 +4,6 @@ return {
     opts = function(_, opts)
       -- Ensure servers table exists
       opts.servers = opts.servers or {}
-      
-      -- Configure clangd for Zephyr projects
-      opts.servers.clangd = {
-        cmd = {
-          "clangd",
-          "--background-index",
-          "--clang-tidy",
-          "--header-insertion=iwyu",
-          "--completion-style=detailed",
-          "--function-arg-placeholders",
-          "--fallback-style=llvm",
-        },
-        init_options = {
-          usePlaceholders = true,
-          completeUnimported = true,
-          clangdFileStatus = true,
-        },
-        root_dir = function(fname)
-          local util = require("lspconfig.util")
-          -- Look for Zephyr project markers
-          return util.root_pattern(
-            "west.yml",
-            "CMakeLists.txt",
-            ".west",
-            "zephyr",
-            ".git"
-          )(fname)
-        end,
-        filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
-      }
 
       -- Add support for devicetree files
       if vim.fn.executable("zephyr-ide") == 1 then
